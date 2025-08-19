@@ -189,7 +189,8 @@ const (
 	EthereumNetwork     Network = "ethereum"
 	HoleskyNetwork      Network = "holesky"
 	TaikoDevNetwork     Network = "taiko_dev"
-	SurgeDevNetwork     Network = "surge_dev"
+	SurgeDevnetNetwork  Network = "surge_dev"
+	SurgeTestnetNetwork Network = "surge_testnet"
 )
 
 //go:generate go run github.com/fjl/gencodec -type ChainSpec -out gen_chain_spec.go
@@ -253,11 +254,17 @@ func (c *ChainSpec) chainConfig() (*params.ChainConfig, error) {
 		chainConfig.OntakeBlock = core.InternalDevnetOntakeBlock
 		chainConfig.PacayaBlock = core.InternalDevnetPacayaBlock
 		return chainConfig, nil
-	case SurgeDevNetwork:
-		chainConfig := params.NetworkIDToChainConfigOrDefault(params.SurgeDevNetworkID)
-		chainConfig.ChainID = params.SurgeDevNetworkID
-		chainConfig.OntakeBlock = core.SurgeDevOntakeBlock
-		chainConfig.PacayaBlock = core.SurgeDevPacayaBlock
+	case SurgeDevnetNetwork:
+		chainConfig := params.NetworkIDToChainConfigOrDefault(params.SurgeDevnetNetworkID)
+		chainConfig.ChainID = params.SurgeDevnetNetworkID
+		chainConfig.OntakeBlock = core.SurgeDevnetOntakeBlock
+		chainConfig.PacayaBlock = core.SurgeDevnetPacayaBlock
+		return chainConfig, nil
+	case SurgeTestnetNetwork:
+		chainConfig := params.NetworkIDToChainConfigOrDefault(params.SurgeTestnetNetworkID)
+		chainConfig.ChainID = params.SurgeTestnetNetworkID
+		chainConfig.OntakeBlock = core.SurgeTestnetOntakeBlock
+		chainConfig.PacayaBlock = core.SurgeTestnetPacayaBlock
 		return chainConfig, nil
 	default:
 		return nil, errors.New("unsupported chain spec")
