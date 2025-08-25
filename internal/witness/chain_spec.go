@@ -191,6 +191,7 @@ const (
 	TaikoDevNetwork     Network = "taiko_dev"
 	SurgeDevnetNetwork  Network = "surge_dev"
 	SurgeTestnetNetwork Network = "surge_testnet"
+	SurgeMainnetNetwork Network = "surge_mainnet"
 )
 
 //go:generate go run github.com/fjl/gencodec -type ChainSpec -out gen_chain_spec.go
@@ -265,6 +266,12 @@ func (c *ChainSpec) chainConfig() (*params.ChainConfig, error) {
 		chainConfig.ChainID = params.SurgeTestnetNetworkID
 		chainConfig.OntakeBlock = core.SurgeTestnetOntakeBlock
 		chainConfig.PacayaBlock = core.SurgeTestnetPacayaBlock
+		return chainConfig, nil
+	case SurgeMainnetNetwork:
+		chainConfig := params.NetworkIDToChainConfigOrDefault(params.SurgeMainnetNetworkID)
+		chainConfig.ChainID = params.SurgeMainnetNetworkID
+		chainConfig.OntakeBlock = core.SurgeMainnetOntakeBlock
+		chainConfig.PacayaBlock = core.SurgeMainnetPacayaBlock
 		return chainConfig, nil
 	default:
 		return nil, errors.New("unsupported chain spec")
