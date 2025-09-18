@@ -10,14 +10,14 @@ import (
 
 // Signature represents a signature of a transaction has the same format with raiko.
 type Signature struct {
-	R          *big.Int `json:"r"            gencodec:"required"`
-	S          *big.Int `json:"s"            gencodec:"required"`
-	OddYParity bool     `json:"odd_y_parity" gencodec:"required"`
+	R          *big.Int `json:"r"       gencodec:"required"`
+	S          *big.Int `json:"s"       gencodec:"required"`
+	OddYParity *big.Int `json:"yParity" gencodec:"required"`
 }
 
 func (s *Signature) V(chainID *big.Int, isLegacy bool) *big.Int {
 	oddYParity := uint64(0)
-	if s.OddYParity {
+	if s.OddYParity != nil && s.OddYParity.Uint64() == 1 {
 		oddYParity = 1
 	}
 	if isLegacy {
