@@ -118,6 +118,18 @@ func (g *BatchGuestInput) calculatePacayaTxsHash(
 func (g *BatchGuestInput) Verify(proofType ProofType) error {
 	// 1. verify chain spec
 	for input := range slices.Values(g.Inputs) {
+		log.Info(
+			"DEBUG: Input chain spec",
+			"name", input.ChainSpec.Name,
+			"chainID", input.ChainSpec.ChainID,
+			"maxSpecID", input.ChainSpec.MaxSpecID,
+			"hardForks", input.ChainSpec.HardForks,
+			"l1Contract", input.ChainSpec.L1Contract,
+			"l2Contract", input.ChainSpec.L2Contract,
+			"rpc", input.ChainSpec.RPC,
+			"beaconRPC", input.ChainSpec.BeaconRPC,
+			"isTaiko", input.ChainSpec.IsTaiko,
+		)
 		if err := defaultSupportedChainSpecs.verifyChainSpec(input.ChainSpec); err != nil {
 			return err
 		}

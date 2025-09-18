@@ -12,6 +12,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core"
+	"github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/params"
 	"gitlab.com/c0b/go-ordered-json"
 )
@@ -34,6 +35,18 @@ func (s SupportedChainSpecs) verifyChainSpec(other *ChainSpec) error {
 		if chainSpec.ChainID != other.ChainID {
 			continue
 		}
+		log.Info(
+			"DEBUG: Expected chain spec",
+			"name", chainSpec.Name,
+			"chainID", chainSpec.ChainID,
+			"maxSpecID", chainSpec.MaxSpecID,
+			"hardForks", chainSpec.HardForks,
+			"l1Contract", chainSpec.L1Contract,
+			"l2Contract", chainSpec.L2Contract,
+			"rpc", chainSpec.RPC,
+			"beaconRPC", chainSpec.BeaconRPC,
+			"isTaiko", chainSpec.IsTaiko,
+		)
 		if chainSpec.MaxSpecID != other.MaxSpecID {
 			return errors.New("unexpected max_spec_id")
 		}
@@ -260,14 +273,22 @@ func (c *ChainSpec) chainConfig() (*params.ChainConfig, error) {
 		chainConfig.ChainID = params.SurgeDevnetNetworkID
 		chainConfig.OntakeBlock = core.SurgeDevnetOntakeBlock
 		chainConfig.PacayaBlock = core.SurgeDevnetPacayaBlock
+
+		log.Info("DEBUG: Selected SurgeDevnet chain config",
+			"chainID", chainConfig.ChainID,
+			"ontakeBlock", chainConfig.OntakeBlock,
+			"pacayaBlock", chainConfig.PacayaBlock)
+
 		return chainConfig, nil
 	case SurgeTestnetNetwork:
+		// TODO(@jmadibekov): double check if Gaiko works with Surge Testnet
 		chainConfig := params.NetworkIDToChainConfigOrDefault(params.SurgeTestnetNetworkID)
 		chainConfig.ChainID = params.SurgeTestnetNetworkID
 		chainConfig.OntakeBlock = core.SurgeTestnetOntakeBlock
 		chainConfig.PacayaBlock = core.SurgeTestnetPacayaBlock
 		return chainConfig, nil
 	case SurgeMainnetNetwork:
+		// TODO(@jmadibekov): double check if Gaiko works with Surge Mainnet
 		chainConfig := params.NetworkIDToChainConfigOrDefault(params.SurgeMainnetNetworkID)
 		chainConfig.ChainID = params.SurgeMainnetNetworkID
 		chainConfig.OntakeBlock = core.SurgeMainnetOntakeBlock
