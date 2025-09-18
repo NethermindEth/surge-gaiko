@@ -17,12 +17,12 @@ func (s Signature) MarshalJSON() ([]byte, error) {
 	type Signature struct {
 		R          *math.HexOrDecimal256 `json:"r"       gencodec:"required"`
 		S          *math.HexOrDecimal256 `json:"s"       gencodec:"required"`
-		OddYParity *big.Int              `json:"yParity" gencodec:"required"`
+		OddYParity *math.HexOrDecimal256 `json:"yParity" gencodec:"required"`
 	}
 	var enc Signature
 	enc.R = (*math.HexOrDecimal256)(s.R)
 	enc.S = (*math.HexOrDecimal256)(s.S)
-	enc.OddYParity = s.OddYParity
+	enc.OddYParity = (*math.HexOrDecimal256)(s.OddYParity)
 	return json.Marshal(&enc)
 }
 
@@ -31,7 +31,7 @@ func (s *Signature) UnmarshalJSON(input []byte) error {
 	type Signature struct {
 		R          *math.HexOrDecimal256 `json:"r"       gencodec:"required"`
 		S          *math.HexOrDecimal256 `json:"s"       gencodec:"required"`
-		OddYParity *big.Int              `json:"yParity" gencodec:"required"`
+		OddYParity *math.HexOrDecimal256 `json:"yParity" gencodec:"required"`
 	}
 	var dec Signature
 	if err := json.Unmarshal(input, &dec); err != nil {
@@ -48,6 +48,6 @@ func (s *Signature) UnmarshalJSON(input []byte) error {
 	if dec.OddYParity == nil {
 		return errors.New("missing required field 'yParity' for Signature")
 	}
-	s.OddYParity = dec.OddYParity
+	s.OddYParity = (*big.Int)(dec.OddYParity)
 	return nil
 }

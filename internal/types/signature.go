@@ -28,6 +28,7 @@ func (s *Signature) V(chainID *big.Int, isLegacy bool) *big.Int {
 }
 
 type signatureMarshaling struct {
-	R *math.HexOrDecimal256 `json:"r" gencodec:"required"`
-	S *math.HexOrDecimal256 `json:"s" gencodec:"required"`
+	R          *math.HexOrDecimal256 `json:"r" gencodec:"required"`
+	S          *math.HexOrDecimal256 `json:"s" gencodec:"required"`
+	OddYParity *math.HexOrDecimal256 `json:"yParity" gencodec:"required"`
 }
