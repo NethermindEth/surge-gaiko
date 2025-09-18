@@ -5,6 +5,7 @@ import (
 	"slices"
 
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/log"
 	"github.com/taikoxyz/gaiko/pkg/keccak"
 	"github.com/taikoxyz/taiko-mono/packages/taiko-client/bindings/ontake"
 	"github.com/taikoxyz/taiko-mono/packages/taiko-client/bindings/pacaya"
@@ -82,6 +83,14 @@ func NewPublicInput(
 		sgxInstance:    sgxInstance,
 		chainID:        input.ChainID(),
 	}
+
+	log.Debug("DEBUG: Creating public input",
+		"chainID", pi.chainID,
+		"verifier", pi.verifier,
+		"prover", pi.prover,
+		"sgxInstance", pi.sgxInstance,
+		"proofType", proofType,
+	)
 
 	if input.IsTaiko() && input.BlockProposedFork().BlockMetadataFork() != nil {
 		got, err := meta.ABIEncode()
