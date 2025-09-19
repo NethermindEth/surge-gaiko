@@ -101,6 +101,14 @@ func NewPublicInput(
 		if err != nil {
 			return nil, err
 		}
+		
+		log.Debug("DEBUG: Block metadata comparison",
+			"computed_hash", fmt.Sprintf("%#x", got),
+			"original_hash", fmt.Sprintf("%#x", want),
+			"computed_meta", fmt.Sprintf("%+v", meta),
+			"original_meta", fmt.Sprintf("%+v", input.BlockProposedFork().BlockMetadataFork()),
+		)
+		
 		if !slices.Equal(got, want) {
 			return nil, fmt.Errorf("block hash mismatch, expected: %#x, got: %#x", want, got)
 		}
