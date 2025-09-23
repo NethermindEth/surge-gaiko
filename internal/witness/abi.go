@@ -22,7 +22,7 @@ var (
 		{Name: "VERIFY_PROOF", Type: stringTy},
 		{Name: "_chainId", Type: uint64Ty},
 		{Name: "_verifierContract", Type: addressTy},
-		{Name: "_transition", Type: encoding.TransitionComponentsType},
+		{Name: "_transition", Type: encoding.BatchTransitionComponentsArrayType},
 		{Name: "_newInstance", Type: addressTy},
 		{Name: "_prover", Type: addressTy},
 		{Name: "_metaHash", Type: byte32Ty},

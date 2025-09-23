@@ -108,41 +108,16 @@ func (g *BatchGuestInput) calculatePacayaTxsHash(
 	txListHash common.Hash,
 	blobHashes [][32]byte,
 ) (common.Hash, error) {
-	log.Debug("DEBUG: calculatePacayaTxsHash inputs",
-		"txListHash", fmt.Sprintf("%#x", txListHash),
-		"blobHashes", fmt.Sprintf("%#x", blobHashes),
-		"blobHashesCount", len(blobHashes),
-	)
-
 	data, err := batchTxHashArgs.Pack(txListHash, blobHashes)
 	if err != nil {
 		return common.Hash{}, err
 	}
-
-	result := keccak.Keccak(data)
-	log.Debug("DEBUG: calculatePacayaTxsHash output",
-		"packedData", fmt.Sprintf("%#x", data),
-		"finalTxsHash", fmt.Sprintf("%#x", result),
-	)
-
-	return result, nil
+	return keccak.Keccak(data), nil
 }
 
 func (g *BatchGuestInput) Verify(proofType ProofType) error {
 	// 1. verify chain spec
 	for input := range slices.Values(g.Inputs) {
-		log.Info(
-			"DEBUG: Input chain spec",
-			"name", input.ChainSpec.Name,
-			"chainID", input.ChainSpec.ChainID,
-			"maxSpecID", input.ChainSpec.MaxSpecID,
-			"hardForks", input.ChainSpec.HardForks,
-			"l1Contract", input.ChainSpec.L1Contract,
-			"l2Contract", input.ChainSpec.L2Contract,
-			"rpc", input.ChainSpec.RPC,
-			"beaconRPC", input.ChainSpec.BeaconRPC,
-			"isTaiko", input.ChainSpec.IsTaiko,
-		)
 		if err := defaultSupportedChainSpecs.verifyChainSpec(input.ChainSpec); err != nil {
 			return err
 		}
@@ -238,18 +213,6 @@ func (g *BatchGuestInput) BlockMetadataFork() (BlockMetadataFork, error) {
 		return nil, err
 	}
 
-	// Get original metadata for detailed comparison
-	originalMeta := g.Taiko.BatchProposed.BlockMetadataFork()
-	originalEncoded, _ := originalMeta.ABIEncode()
-
-	log.Debug("DEBUG: TxsHash computation",
-		"txListHash", fmt.Sprintf("%#x", txListHash),
-		"blobHashes", fmt.Sprintf("%#x", g.Taiko.BatchProposed.BlobHashes()),
-		"computed_txsHash", fmt.Sprintf("%#x", txsHash),
-		"original_metadata_type", fmt.Sprintf("%T", originalMeta),
-		"original_encoded", fmt.Sprintf("%#x", originalEncoded),
-	)
-
 	blocks := make([]pacaya.ITaikoInboxBlockParams, 0, len(g.Inputs))
 	parentTs := g.Inputs[0].Block.Time()
 
@@ -291,6 +254,7 @@ func (g *BatchGuestInput) BlockMetadataFork() (BlockMetadataFork, error) {
 		BlobByteOffset:     g.Taiko.BatchProposed.BlobTxListOffset(),
 		BlobByteSize:       g.Taiko.BatchProposed.BlobTxListLength(),
 		GasLimit:           g.Taiko.BatchProposed.GasLimit(),
+		BaseFee:            g.Inputs[len(g.Inputs)-1].Block.BaseFee(),
 		LastBlockId:        g.Inputs[len(g.Inputs)-1].Block.NumberU64(),
 		LastBlockTimestamp: g.Inputs[len(g.Inputs)-1].Block.Time(),
 		AnchorBlockId:      g.Taiko.L1Header.Number.Uint64(),
@@ -299,33 +263,11 @@ func (g *BatchGuestInput) BlockMetadataFork() (BlockMetadataFork, error) {
 		BlobCreatedIn:      g.Taiko.BatchProposed.BlobCreatedIn(),
 	}
 
-	log.Debug("DEBUG: Computed batchInfo",
-		"computed_txsHash", fmt.Sprintf("%#x", batchInfo.TxsHash),
-		"blocks", fmt.Sprintf("%+v", batchInfo.Blocks),
-		"blobHashes", fmt.Sprintf("%#x", batchInfo.BlobHashes),
-		"extraData", fmt.Sprintf("%#x", batchInfo.ExtraData),
-		"coinbase", fmt.Sprintf("%#x", batchInfo.Coinbase),
-		"proposedIn", batchInfo.ProposedIn,
-		"gasLimit", batchInfo.GasLimit,
-		"lastBlockId", batchInfo.LastBlockId,
-		"lastBlockTimestamp", batchInfo.LastBlockTimestamp,
-		"anchorBlockId", batchInfo.AnchorBlockId,
-		"anchorBlockHash", fmt.Sprintf("%#x", batchInfo.AnchorBlockHash),
-	)
-
 	data, err := batchInfoComponentsArgs.Pack(batchInfo)
 	if err != nil {
 		return nil, err
 	}
 	infoHash := keccak.Keccak(data)
-
-	log.Debug("DEBUG: Final computation",
-		"batchInfoPacked", fmt.Sprintf("%#x", data),
-		"computed_infoHash", fmt.Sprintf("%#x", infoHash),
-		"computed_proposer", fmt.Sprintf("%#x", g.Taiko.BatchProposed.Proposer()),
-		"computed_batchId", g.Taiko.BatchID,
-		"computed_proposedAt", g.Taiko.BatchProposed.ProposedAt(),
-	)
 
 	return NewPacayaBlockMetadata(&pacaya.ITaikoInboxBatchMetadata{
 		InfoHash:   infoHash,

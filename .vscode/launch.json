@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Gaiko One-Batch-Shot",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}/cmd/gaiko",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "--verbosity",
+                "5",
+                "--sgx-type",
+                "dev",
+                "one-batch-shot",
+                "--sgx-instance-id",
+                "0",
+                "--witness",
+                "input.json"
+            ],
+            "buildFlags": "-v -tags dev",
+            "console": "integratedTerminal"
+        }
+    ]
+}

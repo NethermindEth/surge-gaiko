@@ -35,18 +35,6 @@ func (s SupportedChainSpecs) verifyChainSpec(other *ChainSpec) error {
 		if chainSpec.ChainID != other.ChainID {
 			continue
 		}
-		log.Info(
-			"DEBUG: Expected chain spec",
-			"name", chainSpec.Name,
-			"chainID", chainSpec.ChainID,
-			"maxSpecID", chainSpec.MaxSpecID,
-			"hardForks", chainSpec.HardForks,
-			"l1Contract", chainSpec.L1Contract,
-			"l2Contract", chainSpec.L2Contract,
-			"rpc", chainSpec.RPC,
-			"beaconRPC", chainSpec.BeaconRPC,
-			"isTaiko", chainSpec.IsTaiko,
-		)
 		if chainSpec.MaxSpecID != other.MaxSpecID {
 			return errors.New("unexpected max_spec_id")
 		}
@@ -274,7 +262,7 @@ func (c *ChainSpec) chainConfig() (*params.ChainConfig, error) {
 		chainConfig.OntakeBlock = core.SurgeDevnetOntakeBlock
 		chainConfig.PacayaBlock = core.SurgeDevnetPacayaBlock
 
-		log.Info("DEBUG: Selected SurgeDevnet chain config",
+		log.Debug("Selected SurgeDevnet chain config",
 			"chainID", chainConfig.ChainID,
 			"ontakeBlock", chainConfig.OntakeBlock,
 			"pacayaBlock", chainConfig.PacayaBlock)
