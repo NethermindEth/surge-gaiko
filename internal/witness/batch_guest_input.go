@@ -254,6 +254,7 @@ func (g *BatchGuestInput) BlockMetadataFork() (BlockMetadataFork, error) {
 		BlobByteOffset:     g.Taiko.BatchProposed.BlobTxListOffset(),
 		BlobByteSize:       g.Taiko.BatchProposed.BlobTxListLength(),
 		GasLimit:           g.Taiko.BatchProposed.GasLimit(),
+		BaseFee:            g.Inputs[len(g.Inputs)-1].Block.BaseFee(),
 		LastBlockId:        g.Inputs[len(g.Inputs)-1].Block.NumberU64(),
 		LastBlockTimestamp: g.Inputs[len(g.Inputs)-1].Block.Time(),
 		AnchorBlockId:      g.Taiko.L1Header.Number.Uint64(),

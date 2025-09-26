@@ -17,12 +17,9 @@ func decompressTxList(
 	return txListDecompressor.NewTxListDecompressor(
 		blockMaxGasLimit,
 		maxBytesPerTxList,
-		chainID,
 	).TryDecompress(
-		chainID,
 		txListBytes,
 		blobUsed,
-		isPacaya,
 	)
 }
 

@@ -38,7 +38,7 @@ func (h Header) MarshalJSON() ([]byte, error) {
 		BlobGasUsed           *math.HexOrDecimal64  `json:"blob_gas_used"`
 		ExcessBlobGas         *math.HexOrDecimal64  `json:"excess_blob_gas"`
 		ParentBeaconBlockRoot *common.Hash          `json:"parent_beacon_block_root"`
-		RequestsRoot          *common.Hash          `json:"requests_root"`
+		RequestsRoot          *common.Hash          `json:"requests_hash"`
 	}
 	var enc Header
 	enc.ParentHash = h.ParentHash
@@ -88,7 +88,7 @@ func (h *Header) UnmarshalJSON(input []byte) error {
 		BlobGasUsed           *math.HexOrDecimal64  `json:"blob_gas_used"`
 		ExcessBlobGas         *math.HexOrDecimal64  `json:"excess_blob_gas"`
 		ParentBeaconBlockRoot *common.Hash          `json:"parent_beacon_block_root"`
-		RequestsRoot          *common.Hash          `json:"requests_root"`
+		RequestsRoot          *common.Hash          `json:"requests_hash"`
 	}
 	var dec Header
 	if err := json.Unmarshal(input, &dec); err != nil {

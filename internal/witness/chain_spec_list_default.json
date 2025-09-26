@@ -253,5 +253,47 @@
     "genesis_time": 0,
     "seconds_per_slot": 1,
     "is_taiko": true
+  },
+  {
+    "name": "surge_dev",
+    "chain_id": 763374,
+    "max_spec_id": "PACAYA",
+    "hard_forks": {
+      "HEKLA": {
+        "Block": 0
+      },
+      "ONTAKE": {
+        "Block": 1
+      },
+      "PACAYA": {
+        "Block": 1
+      },
+      "CANCUN": "TBD"
+    },
+    "eip_1559_constants": {
+      "base_fee_change_denominator": "0x8",
+      "base_fee_max_increase_denominator": "0x8",
+      "base_fee_max_decrease_denominator": "0x8",
+      "elasticity_multiplier": "0x2"
+    },
+    "l1_contract": "0xa6f38572271f6e251ba8d7a1992ded1d1f05f3bd",
+    "l2_contract": "0x7633740000000000000000000000000000010001",
+    "rpc": "https://l2-rpc.staging.surge.wtf",
+    "beacon_rpc": null,
+    "verifier_address_forks": {
+      "HEKLA": {
+        "Sp1": "0xc63aafc2a65020c4d1090f69158964c35b456fed",
+        "Sgx": "0x61795f62adfca83539b391667bba4ffec338d146",
+        "Risc0": "0xa9e77dea8d86ae55f6181472246c9157e85a7f7e"
+      },
+      "ONTAKE": {
+        "Sp1": "0xc63aafc2a65020c4d1090f69158964c35b456fed",
+        "Sgx": "0x61795f62adfca83539b391667bba4ffec338d146",
+        "Risc0": "0xa9e77dea8d86ae55f6181472246c9157e85a7f7e"
+      }
+    },
+    "genesis_time": 0,
+    "seconds_per_slot": 1,
+    "is_taiko": true
   }
 ]

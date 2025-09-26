@@ -12,6 +12,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core"
+	"github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/params"
 	"gitlab.com/c0b/go-ordered-json"
 )
@@ -189,6 +190,9 @@ const (
 	EthereumNetwork     Network = "ethereum"
 	HoleskyNetwork      Network = "holesky"
 	TaikoDevNetwork     Network = "taiko_dev"
+	SurgeDevnetNetwork  Network = "surge_dev"
+	SurgeTestnetNetwork Network = "surge_testnet"
+	SurgeMainnetNetwork Network = "surge_mainnet"
 )
 
 //go:generate go run github.com/fjl/gencodec -type ChainSpec -out gen_chain_spec.go
@@ -251,6 +255,32 @@ func (c *ChainSpec) chainConfig() (*params.ChainConfig, error) {
 		chainConfig.ChainID = params.TaikoInternalL2ANetworkID
 		chainConfig.OntakeBlock = core.InternalDevnetOntakeBlock
 		chainConfig.PacayaBlock = core.InternalDevnetPacayaBlock
+		return chainConfig, nil
+	case SurgeDevnetNetwork:
+		chainConfig := params.NetworkIDToChainConfigOrDefault(params.SurgeDevnetNetworkID)
+		chainConfig.ChainID = params.SurgeDevnetNetworkID
+		chainConfig.OntakeBlock = core.SurgeDevnetOntakeBlock
+		chainConfig.PacayaBlock = core.SurgeDevnetPacayaBlock
+
+		log.Debug("Selected SurgeDevnet chain config",
+			"chainID", chainConfig.ChainID,
+			"ontakeBlock", chainConfig.OntakeBlock,
+			"pacayaBlock", chainConfig.PacayaBlock)
+
+		return chainConfig, nil
+	case SurgeTestnetNetwork:
+		// TODO(@jmadibekov): double check if Gaiko works with Surge Testnet
+		chainConfig := params.NetworkIDToChainConfigOrDefault(params.SurgeTestnetNetworkID)
+		chainConfig.ChainID = params.SurgeTestnetNetworkID
+		chainConfig.OntakeBlock = core.SurgeTestnetOntakeBlock
+		chainConfig.PacayaBlock = core.SurgeTestnetPacayaBlock
+		return chainConfig, nil
+	case SurgeMainnetNetwork:
+		// TODO(@jmadibekov): double check if Gaiko works with Surge Mainnet
+		chainConfig := params.NetworkIDToChainConfigOrDefault(params.SurgeMainnetNetworkID)
+		chainConfig.ChainID = params.SurgeMainnetNetworkID
+		chainConfig.OntakeBlock = core.SurgeMainnetOntakeBlock
+		chainConfig.PacayaBlock = core.SurgeMainnetPacayaBlock
 		return chainConfig, nil
 	default:
 		return nil, errors.New("unsupported chain spec")

@@ -44,7 +44,7 @@ type Header struct {
 	ExcessBlobGas         *uint64        `json:"excess_blob_gas"`
 	ParentBeaconBlockRoot *common.Hash   `json:"parent_beacon_block_root"`
 	// BYPASS: This is a workaround for the fact that the `requests_root`(requests_hash) field, same name with raiko-host
-	RequestsRoot *common.Hash `json:"requests_root"`
+	RequestsRoot *common.Hash `json:"requests_hash"`
 }
 
 type headerMarshaling struct {
