@@ -257,18 +257,13 @@
   {
     "name": "surge_dev",
     "chain_id": 763374,
-    "max_spec_id": "PACAYA",
     "hard_forks": {
-      "HEKLA": {
-        "Block": 0
-      },
       "ONTAKE": {
         "Block": 1
       },
       "PACAYA": {
         "Block": 1
-      },
-      "CANCUN": "TBD"
+      }
     },
     "eip_1559_constants": {
       "base_fee_change_denominator": "0x8",
@@ -276,9 +271,9 @@
       "base_fee_max_decrease_denominator": "0x8",
       "elasticity_multiplier": "0x2"
     },
-    "l1_contract": "0xa6f38572271f6e251ba8d7a1992ded1d1f05f3bd",
+    "l1_contract": "0x93aad1588d6125ca2383efbb0af3ebc57e266f58",
     "l2_contract": "0x7633740000000000000000000000000000010001",
-    "rpc": "https://l2-rpc.staging.surge.wtf",
+    "rpc": "https://devnet-two.surge.wtf/l2-rpc",
     "beacon_rpc": null,
     "verifier_address_forks": {
       "HEKLA": {

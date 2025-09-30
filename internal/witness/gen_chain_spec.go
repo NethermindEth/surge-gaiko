@@ -14,7 +14,7 @@ func (c ChainSpec) MarshalJSON() ([]byte, error) {
 	type ChainSpec struct {
 		Name                 Network                        `json:"name"                   gencodec:"required"`
 		ChainID              uint64                         `json:"chain_id"               gencodec:"required"`
-		MaxSpecID            SpecID                         `json:"max_spec_id"            gencodec:"required"`
+		MaxSpecID            SpecID                         `json:"max_spec_id"`
 		HardForks            HardForks                      `json:"hard_forks"             gencodec:"required"`
 		Eip1559Constants     *Eip1559Constants              `json:"eip_1559_constants"     gencodec:"required"`
 		L1Contract           *common.Address                `json:"l1_contract"`
@@ -48,7 +48,7 @@ func (c *ChainSpec) UnmarshalJSON(input []byte) error {
 	type ChainSpec struct {
 		Name                 *Network                       `json:"name"                   gencodec:"required"`
 		ChainID              *uint64                        `json:"chain_id"               gencodec:"required"`
-		MaxSpecID            *SpecID                        `json:"max_spec_id"            gencodec:"required"`
+		MaxSpecID            *SpecID                        `json:"max_spec_id"`
 		HardForks            *HardForks                     `json:"hard_forks"             gencodec:"required"`
 		Eip1559Constants     *Eip1559Constants              `json:"eip_1559_constants"     gencodec:"required"`
 		L1Contract           *common.Address                `json:"l1_contract"`
@@ -72,10 +72,9 @@ func (c *ChainSpec) UnmarshalJSON(input []byte) error {
 		return errors.New("missing required field 'chain_id' for ChainSpec")
 	}
 	c.ChainID = *dec.ChainID
-	if dec.MaxSpecID == nil {
-		return errors.New("missing required field 'max_spec_id' for ChainSpec")
+	if dec.MaxSpecID != nil {
+		c.MaxSpecID = *dec.MaxSpecID
 	}
-	c.MaxSpecID = *dec.MaxSpecID
 	if dec.HardForks == nil {
 		return errors.New("missing required field 'hard_forks' for ChainSpec")
 	}
