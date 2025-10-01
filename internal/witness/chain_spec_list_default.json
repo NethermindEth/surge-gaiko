@@ -271,7 +271,7 @@
       "base_fee_max_decrease_denominator": "0x8",
       "elasticity_multiplier": "0x2"
     },
-    "l1_contract": "0x93aad1588d6125ca2383efbb0af3ebc57e266f58",
+    "l1_contract": "0xd3c705643ded8c2c402a8483921cae2ec99a6b60",
     "l2_contract": "0x7633740000000000000000000000000000010001",
     "rpc": "https://devnet-two.surge.wtf/l2-rpc",
     "beacon_rpc": null,
