@@ -96,4 +96,4 @@ replace github.com/ethereum/go-ethereum v1.15.5 => github.com/NethermindEth/surg
 
 replace github.com/ethereum-optimism/optimism v1.7.4 => github.com/taikoxyz/optimism v0.0.0-20250407113505-a4338a4857e6
 
-replace github.com/taikoxyz/taiko-mono => github.com/NethermindEth/surge-taiko-mono v0.0.0-20250923022354-579b0ce4ca7f
+replace github.com/taikoxyz/taiko-mono => github.com/NethermindEth/surge-taiko-mono v0.0.0-20250928084712-b88648d8d803
