@@ -35,9 +35,6 @@ func (s SupportedChainSpecs) verifyChainSpec(other *ChainSpec) error {
 		if chainSpec.ChainID != other.ChainID {
 			continue
 		}
-		if chainSpec.MaxSpecID != other.MaxSpecID {
-			return errors.New("unexpected max_spec_id")
-		}
 		if len(chainSpec.HardForks) != len(other.HardForks) {
 			return errors.New("unexpected hard_forks")
 		}
@@ -199,7 +196,7 @@ const (
 type ChainSpec struct {
 	Name                 Network                        `json:"name"                   gencodec:"required"`
 	ChainID              uint64                         `json:"chain_id"               gencodec:"required"`
-	MaxSpecID            SpecID                         `json:"max_spec_id"            gencodec:"required"`
+	MaxSpecID            SpecID                         `json:"max_spec_id"`
 	HardForks            HardForks                      `json:"hard_forks"             gencodec:"required"`
 	Eip1559Constants     *Eip1559Constants              `json:"eip_1559_constants"     gencodec:"required"`
 	L1Contract           *common.Address                `json:"l1_contract"`
