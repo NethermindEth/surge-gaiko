@@ -6,8 +6,8 @@ github.com/Microsoft/go-winio v0.6.2 h1:F2VQgta7ecxGYO8k3ZZz3RS8fVIXVxONVUPlNERo
 github.com/Microsoft/go-winio v0.6.2/go.mod h1:yd8OoFMLzJbo9gZq8j5qaps8bJ9aShtEA8Ipt1oGCvU=
 github.com/NethermindEth/surge-geth v0.0.0-20250821150004-845ff47fe15e h1:FAC8Z3yknKIYpSU1gwrgCzukqlqXT00KoWJ9K+5+/XU=
 github.com/NethermindEth/surge-geth v0.0.0-20250821150004-845ff47fe15e/go.mod h1:1LG2LnMOx2yPRHR/S+xuipXH29vPr6BIH6GElD8N/fo=
-github.com/NethermindEth/surge-taiko-mono v0.0.0-20250923022354-579b0ce4ca7f h1:bybC4ByFvvBdjJH5Rnn9lPw+BzX9wGm9CvgiUIeCCSY=
-github.com/NethermindEth/surge-taiko-mono v0.0.0-20250923022354-579b0ce4ca7f/go.mod h1:+ynG+VAwaEo5Dk02nO1marESmmdckLW07s0eMcdQJak=
+github.com/NethermindEth/surge-taiko-mono v0.0.0-20250928084712-b88648d8d803 h1:PRNfsYm6Px0bKHz9mTOLPamAcDPlqlPs4STWmsjcTkA=
+github.com/NethermindEth/surge-taiko-mono v0.0.0-20250928084712-b88648d8d803/go.mod h1:+ynG+VAwaEo5Dk02nO1marESmmdckLW07s0eMcdQJak=
 github.com/VictoriaMetrics/fastcache v1.12.2 h1:N0y9ASrJ0F6h0QaC3o6uJb3NIZ9VKLjCM7NQbSmF7WI=
 github.com/VictoriaMetrics/fastcache v1.12.2/go.mod h1:AmC+Nzz1+3G2eCPapF6UcsnkThDcMsQicp4xDukwJYI=
 github.com/aead/siphash v1.0.1/go.mod h1:Nywa3cDsYNNK3gaciGTWPwHt0wlpNV15vwmswBAUSII=
